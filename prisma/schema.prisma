@@ -14,6 +14,9 @@ model Brand {
  subscriptionStatus String @default("inactive")
  stripeCustomerId String?
  stripeSubscriptionId String?
+ plan String?
+ currentPeriodEnd DateTime?
+ cancelAtPeriodEnd Boolean @default(false)
  createdAt DateTime @default(now())
  products Product[]
  waitlistSignups WaitlistSignup[]
@@ -25,6 +28,13 @@ model Product {
  sku String?
  nfcId String @unique @default(cuid())
  description String?
+ strain String?
+ strainType String?
+ genetics String?
+ effects String?
+ flavors String?
+ grower String?
+ cultivationMethod String?
  published Boolean @default(false)
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt

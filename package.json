@@ -7,9 +7,12 @@
     "lint": "pnpm -r lint"
   },
   "devDependencies": {
+    "prisma": "5.22.0",
     "turbo": "^2.0.0",
-    "typescript": "^5.5.0",
-    "prisma": "5.22.0"
+    "typescript": "^5.5.0"
   },
-  "packageManager": "pnpm@9.12.0"
+  "packageManager": "pnpm@9.12.0",
+  "dependencies": {
+    "@prisma/client": "5.22.0"
+  }
 }
