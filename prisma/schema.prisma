@@ -10,6 +10,10 @@ model Brand {
  clerkId String? @unique
  name String
  email String?
+ slug String?
+ subscriptionStatus String @default("inactive")
+ stripeCustomerId String?
+ stripeSubscriptionId String?
  createdAt DateTime @default(now())
  products Product[]
  waitlistSignups WaitlistSignup[]

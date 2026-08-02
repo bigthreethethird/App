@@ -1,0 +1,2 @@
+import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common'; import { ClerkAuthGuard } from '../auth/auth.guard'; import { BrandService } from './brand.service';
+@UseGuards(ClerkAuthGuard) @Controller('api/admin/brand') export class BrandController { constructor(private readonly service:BrandService){} private uid(r:any){return r.auth?.userId||r.headers['x-clerk-user-id']||'demo-user'} @Get() get(@Req()r:any){return this.service.get(this.uid(r))} @Patch() update(@Req()r:any,@Body()b:any){return this.service.update(this.uid(r),b)} }
