@@ -73,6 +73,9 @@ model Scan {
  id String @id @default(cuid())
  productId String
  consumerId String?
+ ipAddress String?
+ userAgent String?
+ scanCount Int @default(1)
  createdAt DateTime @default(now())
  latitude Float?
  longitude Float?
