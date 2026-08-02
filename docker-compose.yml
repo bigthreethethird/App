@@ -1,0 +1,8 @@
+services:
+ postgres:
+  image: postgres:16
+  environment: {POSTGRES_USER: cannect, POSTGRES_PASSWORD: cannect, POSTGRES_DB: cannect}
+  ports: ['5432:5432']
+ redis:
+  image: redis:7
+  ports: ['6379:6379']

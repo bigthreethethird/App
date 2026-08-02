@@ -1,0 +1,1 @@
+import {Controller,Get} from '@nestjs/common'; import {PrismaService} from '../prisma/prisma.service'; @Controller('api') export class HealthController{constructor(private db:PrismaService){} @Get('health') async health(){try{await this.db.$queryRaw`SELECT 1`;return {status:'ok',database:'connected'}}catch{return {status:'error',database:'disconnected'}}}}

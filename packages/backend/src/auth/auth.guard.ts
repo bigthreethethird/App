@@ -1,0 +1,1 @@
+import {CanActivate,ExecutionContext,Injectable,UnauthorizedException} from '@nestjs/common'; @Injectable() export class ClerkAuthGuard implements CanActivate{canActivate(ctx:ExecutionContext){const req=ctx.switchToHttp().getRequest(); if(!process.env.CLERK_SECRET_KEY)return true; if(!req.headers.authorization)throw new UnauthorizedException(); return true}}

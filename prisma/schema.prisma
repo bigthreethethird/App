@@ -1,0 +1,93 @@
+generator client {
+ provider = "prisma-client-js"
+}
+datasource db {
+ provider = "sqlite"
+ url = env("DATABASE_URL")
+}
+model Brand {
+ id String @id @default(cuid())
+ clerkId String? @unique
+ name String
+ email String?
+ createdAt DateTime @default(now())
+ products Product[]
+ waitlistSignups WaitlistSignup[]
+}
+model Product {
+ id String @id @default(cuid())
+ brandId String
+ name String
+ sku String?
+ nfcId String @unique @default(cuid())
+ description String?
+ published Boolean @default(false)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+ cannabinoidProfile CannabinoidProfile?
+ terpeneProfile TerpeneProfile?
+ media ProductMedia[]
+ coa COA?
+ scans Scan[]
+ @@index([brandId])
+}
+model CannabinoidProfile {
+ id String @id @default(cuid())
+ productId String @unique
+ thc Float?
+ cbd Float?
+ cbg Float?
+ other String?
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+model TerpeneProfile {
+ id String @id @default(cuid())
+ productId String @unique
+ data String
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+model ProductMedia {
+ id String @id @default(cuid())
+ productId String
+ url String
+ type String
+ altText String?
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+ @@index([productId])
+}
+model COA {
+ id String @id @default(cuid())
+ productId String @unique
+ url String
+ labName String?
+ testDate DateTime?
+ status String
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+model Scan {
+ id String @id @default(cuid())
+ productId String
+ consumerId String?
+ createdAt DateTime @default(now())
+ latitude Float?
+ longitude Float?
+ product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+ consumer Consumer? @relation(fields: [consumerId], references: [id], onDelete: SetNull)
+ @@index([productId, createdAt])
+}
+model Consumer {
+ id String @id @default(cuid())
+ token String @unique
+ createdAt DateTime @default(now())
+ scans Scan[]
+}
+model WaitlistSignup {
+ id String @id @default(cuid())
+ email String @unique
+ brandName String?
+ consent Boolean @default(false)
+ createdAt DateTime @default(now())
+ brandId String?
+ brand Brand? @relation(fields: [brandId], references: [id], onDelete: SetNull)
+}
