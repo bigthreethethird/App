@@ -30,7 +30,7 @@ const TIERS = [
     blurb: 'Multi-brand workflows · Tailored support',
     features: ['Multi-brand workspaces', 'Custom integrations', 'Dedicated success team'],
   },
-] as const;
+] ;
 
 function PlanButton({
   tier,
